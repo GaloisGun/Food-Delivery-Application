@@ -7,6 +7,11 @@
     <groupId>com.yufei.cs504</groupId>
     <artifactId>Spring-Cloud-Food-Delivery-Application</artifactId>
     <version>1.0.0.BUILD-SNAPSHOT</version>
+    <modules>
+        <module>order-service</module>
+        <module>restaurant-service</module>
+        <module>payment-service</module>
+    </modules>
     <packaging>pom</packaging>
     <name>Spring-Cloud-Food-Delivery-Application</name>
 

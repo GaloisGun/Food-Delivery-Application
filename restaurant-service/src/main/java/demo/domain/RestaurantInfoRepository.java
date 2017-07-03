@@ -15,7 +15,11 @@ public interface RestaurantInfoRepository extends PagingAndSortingRepository<Res
     void deleteRestaurantInfoByRestaurantName(@Param("restaurantName") String restaurantName);
 
     @RestResource(rel = "by-name", description = @Description("Find by Name, comma separated"))
-    RestaurantInfo findRestaurantInfoByRestaurantName(@Param("restaurantName") String restaurantName);
+    RestaurantInfo findFirstByRestaurantName(@Param("restaurantName") String restaurantName);
+
+    Page<RestaurantInfo> findByRestaurantName(@Param("restaurantName") String restaurantName, Pageable pageable);
+
+    RestaurantInfo findFirstByRestaurantId(@Param("restaurantId") String restaurantId);
 
     @RestResource
     Page<RestaurantInfo> findAll(Pageable pageable);

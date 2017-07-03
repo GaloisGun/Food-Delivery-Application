@@ -2,10 +2,10 @@ package demo.controller;
 
 import demo.Service.RestaurantInfoService;
 import demo.domain.RestaurantInfo;
-import demo.domain.RestaurantInfoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -13,34 +13,33 @@ import java.util.List;
 @RestController
 public class RestaurantBulkUploadController {
 
-    private RestaurantInfoRepository repository;
+    //private RestaurantInfoRepository repository;
     private RestaurantInfoService service;
 
 
     @Autowired
-    public RestaurantBulkUploadController(RestaurantInfoRepository repository, RestaurantInfoService service){
-        this.repository = repository;
+    public RestaurantBulkUploadController(RestaurantInfoService service){
+        //this.repository = repository;
         this.service = service;
     }
 
-    @RequestMapping(value = "/bulk/restaurantInfo", method = RequestMethod.POST)
+    @RequestMapping(value = "/restaurant", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
-    public void upload(@RequestBody List<RestaurantInfo> restaurantInfos){
-        this.repository.save(restaurantInfos);
+    public List<RestaurantInfo> upload(@RequestBody List<RestaurantInfo> restaurantInfos){
+        return this.service.saveRestaurantInfos(restaurantInfos);
     }
 
-    @RequestMapping(value = "/purge", method = RequestMethod.DELETE)
-    @ResponseStatus(HttpStatus.OK)
-    public void purge() {this.repository.deleteAll();}
+    @RequestMapping(value = "/restaurant", method = RequestMethod.DELETE)
+    public void purge() {this.service.deleteAll();}
 
-    @RequestMapping(value = "/restaurantInfo/{restaurantName}", method = RequestMethod.GET)
-    public ResponseEntity<?> findRestaurantInfoByName(@PathVariable("restaurantName") String restaurantName) {
-        RestaurantInfo restaurantInfo = this.service.findByRestaurantName(restaurantName);
-        if (restaurantInfo == null){
-            return ResponseEntity.notFound().build();
-        }
-        return ResponseEntity.ok(restaurantInfo);
+    @RequestMapping(value = "/restaurant/{restaurantName}/list", method = RequestMethod.GET)
+    public Page<RestaurantInfo> findByRestaurantName(@PathVariable String restaurantName, Pageable pageable){
+        return this.service.findByRestaurantName(restaurantName, pageable);
     }
 
+    @RequestMapping(value = "/restaurant/{restaurantName}", method = RequestMethod.GET)
+    public RestaurantInfo findByRestaurantName(@PathVariable String restaurantName) {
+        return this.service.findFirstByRestaurantName(restaurantName);
+    }
 
 }

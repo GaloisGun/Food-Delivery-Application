@@ -1,0 +1,9 @@
+server:
+  port: 9006
+spring:
+  application:
+    name: payment-service-distributor
+  cloud:
+    stream:
+      bindings:
+        output: payments

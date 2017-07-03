@@ -1,0 +1,9 @@
+server:
+  port: 9007
+spring:
+  application:
+    name: payment-service-validator
+  cloud:
+    stream:
+      bindings:
+        input: payments

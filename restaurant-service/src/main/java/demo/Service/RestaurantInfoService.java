@@ -2,19 +2,19 @@ package demo.Service;
 
 import demo.domain.RestaurantInfo;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
-/**
- * Created by wuyufei on 6/24/17.
- */
+
 public interface RestaurantInfoService {
 
     void deleteAll();
 
-    RestaurantInfo findByRestaurantName(String restaurantName);
+    List<RestaurantInfo> saveRestaurantInfos(List<RestaurantInfo> restaurantInfos);
 
-
-
+    Page<RestaurantInfo> findByRestaurantName(String name, Pageable pageable);
+    RestaurantInfo findFirstByRestaurantName(String name);
+    RestaurantInfo findByRestaurantId(String restaurantId);
 
 }

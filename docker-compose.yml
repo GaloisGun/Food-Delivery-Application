@@ -1,0 +1,15 @@
+rabbitmq:
+  image: rabbitmq:3.6.1-management
+  ports:
+    - "5672:5672"
+    - "15672:15672"
+
+mysql:
+  restart: always
+  image: mysql:5.7
+  environment:
+    -  MYSQL_ROOT_PASSWORD=root
+    -  MYSQL-USER=root
+    -  MYSQL_PASS=root
+  ports:
+    -  "3306:3306"

@@ -1,0 +1,1 @@
+java -jar eureka-service/target/eureka-server.jar
